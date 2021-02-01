@@ -13,7 +13,7 @@
 <h2 id="2-I-O模型"><a href="#2-I-O模型" class="headerlink" title="2.  I/O模型"></a>2.  I/O模型</h2><p>共五种，同步阻塞I/O，同步非阻塞I/O，I/O复用，信号驱动I/O和异步I/O：</p>
 <ul>
 <li><p><strong>同步阻塞I/O：</strong></p>
-<p>  发起后一直询问等待，直到完成</p>
+<p>  发起后一直等待，直到完成</p>
 </li>
 <li><p><strong>同步非阻塞I/O</strong></p>
 <p>  发起后进程可以做其它事情，不过会一直询问，直到完成。</p>
@@ -28,7 +28,7 @@
 <p>  发起后去做其他事情，完成后被调用者通知调用者。缺点是非常消耗CPU资源。</p>
 </li>
 </ul>
-<h2 id="3-I-O多路复用详解"><a href="#3-I-O多路复用详解" class="headerlink" title="3. I/O多路复用详解"></a>3. I/O多路复用详解</h2><p>I/O多路复用是同步非阻塞I/O的升级版，从可阻塞多个I/O操作，提升执行效率。主要实现方式有三种：select，poll和epoll。</p>
+<h2 id="3-I-O多路复用详解"><a href="#3-I-O多路复用详解" class="headerlink" title="3. I/O多路复用详解"></a>3. I/O多路复用详解</h2><p>I/O多路复用又称异步阻塞模型，从可阻塞多个I/O操作，提升执行效率。主要实现方式有三种：select，poll和epoll。</p>
 <h3 id="3-1-select"><a href="#3-1-select" class="headerlink" title="3.1 select"></a>3.1 select</h3><p>​    将fd集合从用户空间copy到内核空间，无差别轮询所有流，找出所有能读出数据或写入数据的流来进行操作。</p>
 <p>​    select单个进程能够监视的FD数量存在最大限制，但可以更改(内核源码中的#define __FD_SETSIZE)，通常是1024，但由于采用轮询的方式扫描FD，时间复杂度为O(n)，所以FD数量越多，性能越差。</p>
 <p>​    两次内核空间和用户空间的拷贝需要copy大量的FD数据结构，开销较大。</p>
