@@ -7,7 +7,7 @@
 <h4 id="2-KVM"><a href="#2-KVM" class="headerlink" title="2. KVM"></a>2. KVM</h4><p>​    后起之秀，诞生于以色列的一家公司，之后被redhat收购。与Xen不同的在于它是一种type2的全虚拟化技术。一台KVM虚拟机对应宿主机inux的一个进程，一个vCPU对应进程中的一个线程，进程中还有单独用来处理I/O的线程。其内存管理也依赖于Linux，即Linux的内存管理技术直接用于虚拟机，如共享内存，KSM，大页和NUMA等。</p>
 <h4 id="4-Vmware"><a href="#4-Vmware" class="headerlink" title="4. Vmware"></a>4. Vmware</h4><p>​    最早专注于虚拟化并成功的公司。其旗下两个非常著名的主力产品，workstation和ESXI，前者是type2的桌面级虚拟化产品，后者是type1的服务器级虚拟化产品。</p>
 <h4 id="5-HyperV"><a href="#5-HyperV" class="headerlink" title="5. HyperV"></a>5. HyperV</h4><p>​    微软的Type1虚拟化技术，与Xen类似。</p>
-</div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/tblog/2021/02/04/TCP/"></a></h2><div class="post-info">2021年2月4日</div><div class="post-content"><p>三次握手：</p>
+</div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/tblog/2021/02/04/TCP/">TCP的握手与挥手</a></h2><div class="post-info">2021年2月4日</div><div class="post-content"><p>三次握手：</p>
 <ol>
 <li> 将报头中的SYN置为1，生成ISN，发送后进入SYN-SENT状态。</li>
 <li> 对端接到后，生成ISN，并将ACK位置为1，确认号置为收到的序列号+1，发出后进入SYN-RECV状态。</li>
