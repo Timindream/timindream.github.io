@@ -36,7 +36,7 @@
 </ol>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> change master <span class="keyword">to</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> MASTER_HOST<span class="operator">=</span><span class="string">&#x27;10.1.1.133&#x27;</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> MASTER_USER<span class="operator">=</span><span class="string">&#x27;share&#x27;</span>;</span><br></pre></td></tr></table></figure>
 <ol start="6">
-<li>查看连接状态：show slave status \G</li>
+<li>查看连接状态：show slave status \G;</li>
 </ol>
 </li>
 </ol>
@@ -44,4 +44,4 @@
 <p>​    配置方案与上面相似，但需要两步：</p>
 <p>​    执行show master status;命令查看bin日志。</p>
 <p>​    在change master to 配置时需要加上MASTER_LOG_FILE=‘bin日志的名字’。</p>
-</div></article></div></main><footer><div class="paginator"><a class="next" href="/tblog/2021/03/10/%E4%BD%BF%E7%94%A8RPM%E5%AE%89%E8%A3%85Mysql/">下一篇</a></div><div class="copyright"><p>© 2020 - 2021 <a href="https://gksix.gitee.io/tblog">Tian</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p><p>Logo made by <a target="_blank" rel="noopener" href="https://www.flaticon.com/authors/freepik">Freepik</a> from <a target="_blank" rel="noopener" href="https://flaticon.com">www.flaticon.com</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/tblog/2021/03/12/%E9%9A%8F%E6%83%B31/">上一篇</a><a class="next" href="/tblog/2021/03/10/%E4%BD%BF%E7%94%A8RPM%E5%AE%89%E8%A3%85Mysql/">下一篇</a></div><div class="copyright"><p>© 2020 - 2021 <a href="https://gksix.gitee.io/tblog">Tian</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p><p>Logo made by <a target="_blank" rel="noopener" href="https://www.flaticon.com/authors/freepik">Freepik</a> from <a target="_blank" rel="noopener" href="https://flaticon.com">www.flaticon.com</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

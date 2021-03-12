@@ -1,4 +1,38 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 为兰 若谷</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/tblog/favicon.png"><link rel="stylesheet" href="/tblog/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://gksix.gitee.io/tblog/atom.xml" title="为兰 若谷"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="wrap"><header><a class="logo-link" href="/tblog/"><img src="/tblog/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/tblog/archives/" target="_self">目录</a></li></ul></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/tblog/2021/03/10/Mysql%E4%B8%BB%E4%BB%8E/">Mysql主从</a></h2><div class="post-info">2021年3月10日</div><div class="post-content"><p>​    常见的Mysql高可用策略，Master配上Slave（可多个），Slave与Master的数据进行同步，当Master宕机时可以顶上去。</p>
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 为兰 若谷</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/tblog/favicon.png"><link rel="stylesheet" href="/tblog/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://gksix.gitee.io/tblog/atom.xml" title="为兰 若谷"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="wrap"><header><a class="logo-link" href="/tblog/"><img src="/tblog/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/tblog/archives/" target="_self">目录</a></li></ul></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/tblog/2021/03/12/%E9%9A%8F%E6%83%B31/">腾讯业务运维初面复盘</a></h2><div class="post-info">2021年3月12日</div><div class="post-content"><p>​    腾讯的业务运维面试一直显示初始状态，应该是挂了。吃一堑长一智，这篇将对这次面试进行一个完整的复盘，保证错误不犯第二次。</p>
+<ol>
+<li><p>自我介绍</p>
+<p>自我介绍的时候有些紧张，说得结结巴巴，没有啥逻辑性，这是个很大的问题，自我介绍这里需要精心地准备下。</p>
+</li>
+<li><p>聊下项目</p>
+<p>用4台阿里云ECS虚拟机，其中一台由于和其他三台不在一个区域，在其上搭建测试环境与Showdoc文档中心。另外三台做了内网互通，一台配置了nginx作为负载均衡调度器，另外两台提供服务。数据库是mysql，做了主从。缓存用redis，也做了主从，监控选择使用Netdata。</p>
+</li>
+<li><p>mysql的主从的原理</p>
+<p>从节点开了两个线程，I/O线程与SQL线程。I/O线程负责从Master节点读取Bin log到Relay log，Sql线程负责执行。</p>
+</li>
+<li><p>了解过主主嘛，具体配置过程。</p>
+<p>主主就是互为主从，具体配置过程没有答上来，现在复盘来看，其实很简单，互为主从，不就是角色互换再配置一次主从，这个问题没答出来真是怪自己太菜。</p>
+</li>
+<li><p>你是进行过压测嘛，有哪些指标。</p>
+<p>这个问题肯定是看到项目才问出来的。我事先没有准备，回答是用低轨道离子炮进行压测，看看能顶住多少流量。指标我只回答了三个，页面的响应时间，吞吐量，qps，回答的不行。这里后出文章专门讲述一下。</p>
+</li>
+<li><p>有没有尝试过用docker进行部署，怎样更安全地docker部署。</p>
+<p>我的回答是尝试过，至于更安全的部署我直接说了kata。现在来看应该先回答，docker是直接在内核上隔离资源进行容器的创建，黑客可以直接通过容器攻击到内核，有安全隐患，所以可以创建KVM，在KVM中使用容器，这样即使容器收到攻击，也很难对宿主机造成危害。但这个方案的资源消耗较高，所以可以使用更加轻量化的VM与容器技术的结合方案，OpenStack基金会的kata，在VM层上创建容器，资源消耗更少。</p>
+</li>
+<li><p>TCP4次挥手</p>
+<p>这个是基础，没啥好说的。</p>
+</li>
+<li><p>红黑树</p>
+<p>这个在面试的时候有些紧张，答得很烂。</p>
+</li>
+<li><p>堆栈</p>
+<p>堆在数据结构上的实现一般为二叉堆，斐波那契堆等，按照排列顺序分为最大堆，最小堆。栈的特点为元素后进先出。</p>
+</li>
+<li><p>模拟退火算法</p>
+<p>没听说过，直接去世。</p>
+</li>
+</ol>
+<p>以上是本次面试比较有价值的问题，总体来说答得非常不好，表述没有严谨，缺乏逻辑性。下次面试一定不能犯这些低级的错误。</p>
+</div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/tblog/2021/03/10/Mysql%E4%B8%BB%E4%BB%8E/">Mysql主从</a></h2><div class="post-info">2021年3月10日</div><div class="post-content"><p>​    常见的Mysql高可用策略，Master配上Slave（可多个），Slave与Master的数据进行同步，当Master宕机时可以顶上去。</p>
 <p>原理：</p>
 <p>​    从节点开两个线程，一个线程负责读取主节点中的二进制日志到本机的relay日志，另一个线程负责执行。</p>
 <p>​    有很多主从复制的方法，SBR（基于SQL语句复制）、RBR（基于行复制）、MBR（混合模式（默认使用SBR））以及现在Mysql版本的GITDs（基于事务复制）。</p>
@@ -36,7 +70,7 @@
 </ol>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> change master <span class="keyword">to</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> MASTER_HOST<span class="operator">=</span><span class="string">&#x27;10.1.1.133&#x27;</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> MASTER_USER<span class="operator">=</span><span class="string">&#x27;share&#x27;</span>;</span><br></pre></td></tr></table></figure>
 <ol start="6">
-<li>查看连接状态：show slave status \G</li>
+<li>查看连接状态：show slave status \G;</li>
 </ol>
 </li>
 </ol>
