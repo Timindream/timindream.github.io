@@ -1,4 +1,17 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 为兰 若谷</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="为兰 若谷"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">目录</a></li></ul></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/01/23/IO%E6%A8%A1%E5%9E%8B/">I/O模型</a></h2><div class="post-info">2021年1月23日</div><div class="post-content"><h2 id="1-概念简述"><a href="#1-概念简述" class="headerlink" title="1. 概念简述"></a>1. 概念简述</h2><p><strong>内核空间和用户空间：</strong></p>
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 为兰 若谷</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="为兰 若谷"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">目录</a></li></ul></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/02/04/TCP/">TCP的握手与挥手</a></h2><div class="post-info">2021年2月4日</div><div class="post-content"><p>三次握手：</p>
+<ol>
+<li> 将报头中的SYN置为1，生成ISN，发送后进入SYN-SENT状态。</li>
+<li> 对端接到后，生成ISN，并将ACK位置为1，确认号置为收到的序列号+1，发出后进入SYN-RECV状态。</li>
+<li> 请求连接段收到后，将ACK位置为1，序列号置为收到的确认号，确认号置为收到的序列号+1，发送到对端。</li>
+</ol>
+<p>四次挥手：</p>
+<ol>
+<li> 将FIN位置为1，序列号为收到的上一个包的确认号，确认号为收到的上一个包中的序列号+传输的数据长度，同时本端进入FIN-WAIT1状态。</li>
+<li> 对端收到后将ACK置为1，序列号为收到包的确认号，确认号置为收到包的序列号，发出后进入close-wait状态。这状态下依然可以传输数据。</li>
+<li> 对端将所有的数据发送完之后，发送释放连接报文，SYN置为1，序列号为收到包的确认号，确认号为收到包的序列号，发出后进入LAST-wait</li>
+<li> 本段收到后，将ACK置为1，序列号为收到的确认号，确认号为收到的序列号，发出后进入time-wait时间，等待2*MSL后close。</li>
+</ol>
+</div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/01/23/IO%E6%A8%A1%E5%9E%8B/">I/O模型</a></h2><div class="post-info">2021年1月23日</div><div class="post-content"><h2 id="1-概念简述"><a href="#1-概念简述" class="headerlink" title="1. 概念简述"></a>1. 概念简述</h2><p><strong>内核空间和用户空间：</strong></p>
 <p>​    内核空间：内核调控的硬件资源空间。</p>
 <p>​    用户空间：基于内核提供的环境的应用程序的活动空间，。</p>
 <p><strong>同步和异步：两者的状态关系</strong></p>
