@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> InnoDB的锁 · 为兰 若谷</title><meta name="description" content="InnoDB的锁 - Tian"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="为兰 若谷"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">目录</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">InnoDB的锁</h1><div class="post-info">2021年3月14日</div><div class="post-content"><p>​    当遇到对临界资源进行并发访问的时候，一方面要最大化的性能，另一方面还要保障数据的一致性，而锁机制可以很好的达成这样的效果。本文主要介绍InnoDB中的锁。    </p>
+<p>​    InnoDB中锁按照粒度来分可分为行级锁与表级锁。行级锁通过索引上的索引项实现，其中包含共享锁与排他锁：</p>
+<ul>
+<li><p>共享锁（S）：允许事务读一行数据。</p>
+</li>
+<li><p>排他锁（X）：允许事务delete或update一行数据</p>
+<p>S与S兼容，其它情况都不兼容。在使用索引进行检索时，InnoDB会加上S锁，这一点可能会引起大量的锁冲突，需要注意。</p>
+</li>
+</ul>
+<p>​    表级锁包含意向共享锁和意向排他锁：</p>
+<ul>
+<li>意向共享锁（IS）：事务想要获得一个表中某几行的共享锁。</li>
+<li>意向排他锁（IX）：事务想要获得一个表中某几行的排他锁。</li>
+</ul>
+<p>​    意向锁不会阻塞除全表扫描外的请求。</p>
+<p>​    可以通过三张表查询现在事务与锁的状态：</p>
+<ul>
+<li><p>INNODB_TRX：现在正在执行的事务的情况。</p>
+</li>
+<li><p>INNODB_LOCKS：现在锁的情况。</p>
+</li>
+<li><p>INNODB_LOCK_WAITS：现在被阻塞的事务与锁情况。</p>
+</li>
+</ul>
+<p>​    </p>
+<p>​    如果在锁不兼容的情况下需要读取行的数据，就需要使事务读取行的一个快照数据。原理是通过Undo段回滚数据。一行可能有多个版本的快照数据，此时就需要多版本并发控制技术（MVCC）。在read committed的书屋隔离条件下，InnoDB使用非锁定的一致性读，总是读取被锁定行的最新一份快照数据，而在Repeatable的事务隔离级别下，InnoDB则是读取事务开始前的快照数据版本。</p>
+<p>​    在InnoDB中行锁的算法有3种，分别是：</p>
+<ul>
+<li><p>Record Lock：单个行记录上的锁；</p>
+</li>
+<li><p>Gap Lock：间隙锁，锁定除记录本身的范围；</p>
+</li>
+<li><p>Next-Key Lock：锁定一个范围并锁定记录本身，是默认的算法。</p>
+</li>
+</ul>
+<p>​    当然锁虽然可以提高并发，满足事务的隔离性需求，但锁也带来了问题。</p>
+<ul>
+<li><p>丢失更新：事务的更新操作丢失。这是件非常严重的问题，尤其是在金融领域。想在数据库层面解决这个问题，就需要将操作串行化，按次序执行。</p>
+</li>
+<li><p>脏读：读到了未提交的数据，违反了隔离性。解决方案是将事务隔离级别提升到read uncommit。</p>
+</li>
+<li><p>不可重复读：一个事务多次读取同一数据期间数据被其他事务修改，导致两次读取的数据不一样。解决方案是将事务隔离级别提升到Read Repeatable。</p>
+</li>
+<li><p>死锁：A等待B，B等待A。解决方案是进行回滚操作，往往InnoDB会解决大多数的死锁。</p>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a class="next" href="/2021/03/13/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1-%E5%BC%80%E7%AF%87/">下一篇</a></div><div class="copyright"><p>© 2020 - 2021 <a href="http://yoursite.com">Tian</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p><p>Logo made by <a target="_blank" rel="noopener" href="https://www.flaticon.com/authors/freepik">Freepik</a> from <a target="_blank" rel="noopener" href="https://flaticon.com">www.flaticon.com</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
