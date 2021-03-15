@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> ICMP · 为兰 若谷</title><meta name="description" content="ICMP - Tian"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="为兰 若谷"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">目录</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">ICMP</h1><div class="post-info">2021年3月15日</div><div class="post-content"><p>​    TCP/IP功能较为简单，缺少了很多功能，ICMP协议便是其中的一块补充，为IP增添了通知差错信息与控制信息的功能。</p>
+<h3 id="报头"><a href="#报头" class="headerlink" title="报头"></a>报头</h3><table>
+<thead>
+<tr>
+<th align="center">类型（8位）| 编码（8位）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>校验和（16位）</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>选项数据</strong></td>
+</tr>
+</tbody></table>
+<h3 id="常见类型与编码"><a href="#常见类型与编码" class="headerlink" title="常见类型与编码"></a>常见类型与编码</h3><table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">编码</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">Echo Reply</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="center">网络不可达</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">1</td>
+<td align="center">主机不可达</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">协议不可达</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">端口不可达</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">0</td>
+<td align="center">重定向</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">0</td>
+<td align="center">Echo Request</td>
+</tr>
+</tbody></table>
+<p>​    这只是ICMP类型与编码的一部分，具体可以看RFC792，以及其它相关ICMP拓展。</p>
+<h3 id="具体应用"><a href="#具体应用" class="headerlink" title="具体应用"></a>具体应用</h3><ul>
+<li><p>ping</p>
+<p>ping命令是ICMP应用的典型代表之一，运用type8进行请求，如果目的地可到达则回复type0，否则根据情况返回对应类型编码。</p>
+</li>
+<li><p>tracert（windows)/ traceroute（Linux）</p>
+<p>用于判断转发路径的命令，它的原理是先向目的端发送一个UDP测试报文，TTL值为1，目的端口为一个极其不常用的端口，沿途节点收到后拆包判断自己是不是目的地，不是的话TTL-1=0，向源端返回ICMP超时报文，报文中含有本机IP。源端收到后，再向目的端发送以个UDP报文，这次的TTL值+1=2。重复上述过程，每次TTL值+1，直到到达目的地后停止。</p>
+</li>
+</ul>
+<h3 id="路由重定向"><a href="#路由重定向" class="headerlink" title="路由重定向"></a>路由重定向</h3><p>​    不同的系统对于路由重定向报文有着不同的处理方案，绝大多数往往会直接忽略ICMP重定向报文。因为如果支持重定向，设备将需要维护一个非常庞大的路由表，会极其浪费服务器的性能。而且ICMP重定向存在着安全隐患。</p>
+</div></article></div></main><footer><div class="paginator"><a class="next" href="/2021/03/14/InnoDB%E7%9A%84%E9%94%81/">下一篇</a></div><div class="copyright"><p>© 2020 - 2021 <a href="http://yoursite.com">Tian</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p><p>Logo made by <a target="_blank" rel="noopener" href="https://www.flaticon.com/authors/freepik">Freepik</a> from <a target="_blank" rel="noopener" href="https://flaticon.com">www.flaticon.com</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

@@ -1,32 +1,25 @@
 <!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> RPM安装Mysql · 为兰 若谷</title><meta name="description" content="RPM安装Mysql - Tian"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="为兰 若谷"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">目录</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">RPM安装Mysql</h1><div class="post-info">2021年3月10日</div><div class="post-content"><p>​    官方文档推荐使用RPM的方式安装Mysql，中间存在着一些坑，本片文章将在CentOS上走一便完整的安装流程，供参考。</p>
-<ol>
-<li><p>环境准备</p>
-<p>wget用来下载mysql包，其他两个为必要依赖。</p>
+<p>1.环境准备</p>
+<p>​    wget用来下载mysql包，其他两个为必要依赖。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y perl net-tools wget</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>卸载mariadb</li>
-</ol>
+<p>2.卸载mariadb</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -e `rpm -qa | grep mariadb` --nodeps <span class="comment">#强制卸载mariadb</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>下载</li>
-</ol>
-<p>如果下载速度太慢，可以宿主机下载后用远程终端软件或rz（需yum install lrzsz）传到CentOS。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.13-1.el7.x86_64.rpm-bundle.tar</span><br></pre></td></tr></table></figure></li>
-<li><p>解压</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvf mysql-5.7.13-1.el7.x86_64.rpm-bundle.tar </span><br></pre></td></tr></table></figure></li>
-<li><p>安装</p>
-<p>存在依赖关系，需要按照顺序安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql-community-common-5.7.13-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-libs-5.7.13-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-libs-compat-5.7.13-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-client-5.7.13-1.el7.x86_64.rpm </span><br><span class="line">rpm -ivh mysql-community-server-5.7.13-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure></li>
-<li><p>启动</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld</span><br><span class="line">systemctl <span class="built_in">enable</span> mysqld</span><br></pre></td></tr></table></figure></li>
-<li><p>获取临时密码</p>
-<p>如果不想使用临时密码，请执行mysql_secure_installation，设置root密码，如果不会此命令，解决方案见文章末尾的附。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">&#x27;temporary password&#x27;</span> /var/<span class="built_in">log</span>/mysqld.log</span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">2021-03-10T01:53:22.381808Z 1 [Note] A temporary password is generated <span class="keyword">for</span> root@localhost: WngA:JiJa5=k</span><br></pre></td></tr></table></figure></li>
-<li><p>使用临时密码登录</p>
+<p>3.下载</p>
+<p>​    如果下载速度太慢，可以宿主机下载后用远程终端软件或rz（需yum install lrzsz）传到CentOS。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.13-1.el7.x86_64.rpm-bundle.tar</span><br></pre></td></tr></table></figure>
+<p>4.解压</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvf mysql-5.7.13-1.el7.x86_64.rpm-bundle.tar </span><br></pre></td></tr></table></figure>
+<p>5.安装</p>
+<p>​    存在依赖关系，需要按照顺序安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql-community-common-5.7.13-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-libs-5.7.13-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-libs-compat-5.7.13-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-client-5.7.13-1.el7.x86_64.rpm </span><br><span class="line">rpm -ivh mysql-community-server-5.7.13-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<p>6.启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld</span><br><span class="line">systemctl <span class="built_in">enable</span> mysqld</span><br></pre></td></tr></table></figure>
+<p>7.获取临时密码</p>
+<p>​    如果不想使用临时密码，请执行mysql_secure_installation，设置root密码，如果不会此命令，解决方案见文章末尾的附。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">&#x27;temporary password&#x27;</span> /var/<span class="built_in">log</span>/mysqld.log</span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">2021-03-10T01:53:22.381808Z 1 [Note] A temporary password is generated <span class="keyword">for</span> root@localhost: WngA:JiJa5=k</span><br></pre></td></tr></table></figure>
+<p>8.使用临时密码登录</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p(临时密码)</span><br></pre></td></tr></table></figure>
 
 
-</li>
-</ol>
 <p>附：到这里mysql就已经安装完成，如果嫌弃临时密码太长，就需要更改mysql的密码的安全策略，重新设置密码。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> validate_password_length<span class="operator">=</span><span class="number">4</span>; <span class="comment">--设置密码的长度为4</span></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> validate_password_policy<span class="operator">=</span><span class="number">0</span>; <span class="comment">--将策略级别设为0</span></span><br><span class="line">mysq<span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">USER</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">by</span> <span class="string">&#x27;1234&#x27;</span>; <span class="comment">--更改密码为1234</span></span><br></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a class="prev" href="/2021/03/10/Mysql%E4%B8%BB%E4%BB%8E/">上一篇</a><a class="next" href="/2021/03/03/http/">下一篇</a></div><div class="copyright"><p>© 2020 - 2021 <a href="http://yoursite.com">Tian</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p><p>Logo made by <a target="_blank" rel="noopener" href="https://www.flaticon.com/authors/freepik">Freepik</a> from <a target="_blank" rel="noopener" href="https://flaticon.com">www.flaticon.com</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

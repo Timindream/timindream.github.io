@@ -1,4 +1,72 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 为兰 若谷</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="为兰 若谷"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">目录</a></li></ul></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/14/InnoDB%E7%9A%84%E9%94%81/">InnoDB的锁</a></h2><div class="post-info">2021年3月14日</div><div class="post-content"><p>​    当遇到对临界资源进行并发访问的时候，一方面要最大化的性能，另一方面还要保障数据的一致性，而锁机制可以很好的达成这样的效果。本文主要介绍InnoDB中的锁。    </p>
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 为兰 若谷</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="为兰 若谷"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">目录</a></li></ul></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/15/ICMP/">ICMP</a></h2><div class="post-info">2021年3月15日</div><div class="post-content"><p>​    TCP/IP功能较为简单，缺少了很多功能，ICMP协议便是其中的一块补充，为IP增添了通知差错信息与控制信息的功能。</p>
+<h3 id="报头"><a href="#报头" class="headerlink" title="报头"></a>报头</h3><table>
+<thead>
+<tr>
+<th align="center">类型（8位）| 编码（8位）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>校验和（16位）</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>选项数据</strong></td>
+</tr>
+</tbody></table>
+<h3 id="常见类型与编码"><a href="#常见类型与编码" class="headerlink" title="常见类型与编码"></a>常见类型与编码</h3><table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">编码</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">Echo Reply</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="center">网络不可达</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">1</td>
+<td align="center">主机不可达</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">协议不可达</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">端口不可达</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">0</td>
+<td align="center">重定向</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">0</td>
+<td align="center">Echo Request</td>
+</tr>
+</tbody></table>
+<p>​    这只是ICMP类型与编码的一部分，具体可以看RFC792，以及其它相关ICMP拓展。</p>
+<h3 id="具体应用"><a href="#具体应用" class="headerlink" title="具体应用"></a>具体应用</h3><ul>
+<li><p>ping</p>
+<p>ping命令是ICMP应用的典型代表之一，运用type8进行请求，如果目的地可到达则回复type0，否则根据情况返回对应类型编码。</p>
+</li>
+<li><p>tracert（windows)/ traceroute（Linux）</p>
+<p>用于判断转发路径的命令，它的原理是先向目的端发送一个UDP测试报文，TTL值为1，目的端口为一个极其不常用的端口，沿途节点收到后拆包判断自己是不是目的地，不是的话TTL-1=0，向源端返回ICMP超时报文，报文中含有本机IP。源端收到后，再向目的端发送以个UDP报文，这次的TTL值+1=2。重复上述过程，每次TTL值+1，直到到达目的地后停止。</p>
+</li>
+</ul>
+<h3 id="路由重定向"><a href="#路由重定向" class="headerlink" title="路由重定向"></a>路由重定向</h3><p>​    不同的系统对于路由重定向报文有着不同的处理方案，绝大多数往往会直接忽略ICMP重定向报文。因为如果支持重定向，设备将需要维护一个非常庞大的路由表，会极其浪费服务器的性能。而且ICMP重定向存在着安全隐患。</p>
+</div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/14/InnoDB%E7%9A%84%E9%94%81/">InnoDB的锁</a></h2><div class="post-info">2021年3月14日</div><div class="post-content"><p>​    当遇到对临界资源进行并发访问的时候，一方面要最大化的性能，另一方面还要保障数据的一致性，而锁机制可以很好的达成这样的效果。本文主要介绍InnoDB中的锁。    </p>
 <p>​    InnoDB中锁按照粒度来分可分为行级锁与表级锁。行级锁通过索引上的索引项实现，其中包含共享锁与排他锁：</p>
 <ul>
 <li><p>共享锁（S）：允许事务读一行数据。</p>
@@ -9,10 +77,12 @@
 </ul>
 <p>​    表级锁包含意向共享锁和意向排他锁：</p>
 <ul>
-<li>意向共享锁（IS）：事务想要获得一个表中某几行的共享锁。</li>
-<li>意向排他锁（IX）：事务想要获得一个表中某几行的排他锁。</li>
+<li><p>意向共享锁（IS）：事务想要获得一个表中某几行的共享锁。</p>
+</li>
+<li><p>意向排他锁（IX）：事务想要获得一个表中某几行的排他锁。</p>
+<p> 意向锁不会阻塞除全表扫描外的请求。</p>
+</li>
 </ul>
-<p>​    意向锁不会阻塞除全表扫描外的请求。</p>
 <p>​    可以通过三张表查询现在事务与锁的状态：</p>
 <ul>
 <li><p>INNODB_TRX：现在正在执行的事务的情况。</p>
@@ -20,9 +90,9 @@
 <li><p>INNODB_LOCKS：现在锁的情况。</p>
 </li>
 <li><p>INNODB_LOCK_WAITS：现在被阻塞的事务与锁情况。</p>
+<p> 如果在锁不兼容的情况下需要读取行的数据，就需要使事务读取行的一个快照数据。原理是通过Undo段回滚数据。一行可能有多个版本的快照数据，此时就需要多版本并发控制技术（MVCC）。在read committed的书屋隔离条件下，InnoDB使用非锁定的一致性读，总是读取被锁定行的最新一份快照数据，而在Repeatable的事务隔离级别下，InnoDB则是读取事务开始前的快照数据版本。</p>
 </li>
 </ul>
-<p>​    如果在锁不兼容的情况下需要读取行的数据，就需要使事务读取行的一个快照数据。原理是通过Undo段回滚数据。一行可能有多个版本的快照数据，此时就需要多版本并发控制技术（MVCC）。在read committed的书屋隔离条件下，InnoDB使用非锁定的一致性读，总是读取被锁定行的最新一份快照数据，而在Repeatable的事务隔离级别下，InnoDB则是读取事务开始前的快照数据版本。</p>
 <p>​    在InnoDB中行锁的算法有3种，分别是：</p>
 <ul>
 <li><p>Record Lock：单个行记录上的锁；</p>
@@ -46,7 +116,7 @@
 </div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/13/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1-%E5%BC%80%E7%AF%87/">算法与数据结构-1-开篇</a></h2><div class="post-info">2021年3月13日</div><div class="post-content"><p>​    算法与数据结构是程序员的内功之一，要想写出高质量高性能代码，优秀的算法基础是不可或缺的。这个系列将以python实现，探讨一些常用的算法与数据结构。</p>
 <p>​    首先何为算法，我认为是推演计算寻求结果的方法。将解决问题的方法共性进行抽象而得出来的方式方法，从思想的层面而言，便是道。而数据结构则是在数组或链表的基础上附加特定的属性方法以获得性能的提升或所占存储空间的优化。为了量化程序的执行效率与存储空间的额外使用情况，引入了时间复杂度与空间复杂度。</p>
 <p>​    时间复杂度是对代码执行效率的量化指标，即程序的执行次数，当程序的执行次数会由于某个变量变化时，我们以以变化函数来表示其复杂度。</p>
-<p>​    我们输出一个正整数n：</p>
+<p>我们输出一个正整数n：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(n)</span><br></pre></td></tr></table></figure>
 <p>​    此程序的只需一次执行便可得到结果，我们可将其时间复杂度记为O(1)。</p>
 <p>​    我们再来写一个简单的for循环输出1~n(正整数)：</p>
@@ -94,7 +164,7 @@
 <p>没听说过，直接去世。</p>
 </li>
 </ol>
-<p>以上是本次面试比较有价值的问题，总体来说答得非常不好，表述没有严谨，缺乏逻辑性。下次面试一定不能犯这些低级的错误。</p>
+<p>​    以上是本次面试比较有价值的问题，总体来说答得非常不好，表述没有严谨，缺乏逻辑性。下次面试一定不能犯这些低级的错误。</p>
 </div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/10/Mysql%E4%B8%BB%E4%BB%8E/">Mysql主从</a></h2><div class="post-info">2021年3月10日</div><div class="post-content"><p>​    常见的Mysql高可用策略，Master配上Slave（可多个），Slave与Master的数据进行同步，当Master宕机时可以顶上去。</p>
 <p>原理：</p>
 <p>​    从节点开两个线程，一个线程负责读取主节点中的二进制日志到本机的relay日志，另一个线程负责执行。</p>
@@ -108,69 +178,55 @@
 </li>
 </ul>
 <p>配置：</p>
-<ol>
-<li><p>首先准备两台安装好Mysql的server，安装教程请看使用RPM安装安装Mysql。</p>
+<p>1.首先准备两台安装好Mysql的server，安装教程请看使用RPM安装安装Mysql。</p>
 <p><strong>主节点：</strong></p>
-</li>
-<li><p>配置主节点my.cnf</p>
+<p>2.配置主节点my.cnf</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line"></span><br><span class="line">log-bin=mysql-bin	<span class="comment">#开启二进制日志</span></span><br><span class="line"></span><br><span class="line">server-id=1		    <span class="comment">#配置服务器ID</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>创建用户</li>
-</ol>
-<p>从服务器需要账户来连接主服务器，一从一账号或者多从一账号</p>
+<p>3.创建用户</p>
+<p>​    从服务器需要账户来连接主服务器，一从一账号或者多从一账号</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql <span class="operator">&gt;</span> <span class="keyword">grant</span> replication slave <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;share&#x27;</span>@<span class="string">&#x27;10.1.1.%&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;1234&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<p>如果出现以下报错：</p>
+<p>​    如果出现以下报错：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR <span class="number">1819</span> (HY000): Your password does <span class="keyword">not</span> satisfy the <span class="keyword">current</span> policy requirements</span><br></pre></td></tr></table></figure>
-<p>报错内容：您设置的密码不满足当前要求。请执行以下命令调整数据库的密码级别：</p>
+<p>​    报错内容：您设置的密码不满足当前要求。请执行以下命令调整数据库的密码级别：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> validate_password_length<span class="operator">=</span><span class="number">4</span>; <span class="comment">--设置密码的长度为4</span></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> validate_password_policy<span class="operator">=</span><span class="number">0</span>; <span class="comment">--将策略级别设为0</span></span><br></pre></td></tr></table></figure>
+
+
 <p><strong>从节点：</strong></p>
-<ol start="4">
-<li>配置my.cnf</li>
-</ol>
+<p>1.配置my.cnf</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line"></span><br><span class="line">server<span class="operator">-</span>id<span class="operator">=</span><span class="number">2</span></span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li>配置同步参数</li>
-</ol>
+<p>2.配置同步参数</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> change master <span class="keyword">to</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> MASTER_HOST<span class="operator">=</span><span class="string">&#x27;10.1.1.133&#x27;</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> MASTER_USER<span class="operator">=</span><span class="string">&#x27;share&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<ol start="6">
-<li>查看连接状态：show slave status \G;</li>
-</ol>
-</li>
-</ol>
+<p>3.执行show slave status\G;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Slave_IO_Running: connecting</span><br><span class="line">Slave_SQL_Running: <span class="keyword">No</span></span><br></pre></td></tr></table></figure>
 <h3 id="双主"><a href="#双主" class="headerlink" title="双主"></a>双主</h3><p>​    master与slave可以做读写分离，增强读的性能，但如果从节点进行写入操作会使数据不一致，这就诞生了双主，两台mysql server互为主从，皆可读写。</p>
 <p>​    配置方案与上面相似，但需要两步：</p>
-<p>​    执行show master status;命令查看bin日志。</p>
-<p>​    在change master to 配置时需要加上MASTER_LOG_FILE=‘bin日志的名字’。</p>
-</div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/10/%E4%BD%BF%E7%94%A8RPM%E5%AE%89%E8%A3%85Mysql/">RPM安装Mysql</a></h2><div class="post-info">2021年3月10日</div><div class="post-content"><p>​    官方文档推荐使用RPM的方式安装Mysql，中间存在着一些坑，本片文章将在CentOS上走一便完整的安装流程，供参考。</p>
 <ol>
-<li><p>环境准备</p>
-<p>wget用来下载mysql包，其他两个为必要依赖。</p>
+<li>执行show master status;命令查看bin日志。</li>
+<li>在change master to 配置时需要加上MASTER_LOG_FILE=‘bin日志的名字’。</li>
+</ol>
+</div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/10/%E4%BD%BF%E7%94%A8RPM%E5%AE%89%E8%A3%85Mysql/">RPM安装Mysql</a></h2><div class="post-info">2021年3月10日</div><div class="post-content"><p>​    官方文档推荐使用RPM的方式安装Mysql，中间存在着一些坑，本片文章将在CentOS上走一便完整的安装流程，供参考。</p>
+<p>1.环境准备</p>
+<p>​    wget用来下载mysql包，其他两个为必要依赖。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y perl net-tools wget</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>卸载mariadb</li>
-</ol>
+<p>2.卸载mariadb</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -e `rpm -qa | grep mariadb` --nodeps <span class="comment">#强制卸载mariadb</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>下载</li>
-</ol>
-<p>如果下载速度太慢，可以宿主机下载后用远程终端软件或rz（需yum install lrzsz）传到CentOS。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.13-1.el7.x86_64.rpm-bundle.tar</span><br></pre></td></tr></table></figure></li>
-<li><p>解压</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvf mysql-5.7.13-1.el7.x86_64.rpm-bundle.tar </span><br></pre></td></tr></table></figure></li>
-<li><p>安装</p>
-<p>存在依赖关系，需要按照顺序安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql-community-common-5.7.13-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-libs-5.7.13-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-libs-compat-5.7.13-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-client-5.7.13-1.el7.x86_64.rpm </span><br><span class="line">rpm -ivh mysql-community-server-5.7.13-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure></li>
-<li><p>启动</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld</span><br><span class="line">systemctl <span class="built_in">enable</span> mysqld</span><br></pre></td></tr></table></figure></li>
-<li><p>获取临时密码</p>
-<p>如果不想使用临时密码，请执行mysql_secure_installation，设置root密码，如果不会此命令，解决方案见文章末尾的附。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">&#x27;temporary password&#x27;</span> /var/<span class="built_in">log</span>/mysqld.log</span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">2021-03-10T01:53:22.381808Z 1 [Note] A temporary password is generated <span class="keyword">for</span> root@localhost: WngA:JiJa5=k</span><br></pre></td></tr></table></figure></li>
-<li><p>使用临时密码登录</p>
+<p>3.下载</p>
+<p>​    如果下载速度太慢，可以宿主机下载后用远程终端软件或rz（需yum install lrzsz）传到CentOS。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.13-1.el7.x86_64.rpm-bundle.tar</span><br></pre></td></tr></table></figure>
+<p>4.解压</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvf mysql-5.7.13-1.el7.x86_64.rpm-bundle.tar </span><br></pre></td></tr></table></figure>
+<p>5.安装</p>
+<p>​    存在依赖关系，需要按照顺序安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql-community-common-5.7.13-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-libs-5.7.13-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-libs-compat-5.7.13-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-client-5.7.13-1.el7.x86_64.rpm </span><br><span class="line">rpm -ivh mysql-community-server-5.7.13-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<p>6.启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld</span><br><span class="line">systemctl <span class="built_in">enable</span> mysqld</span><br></pre></td></tr></table></figure>
+<p>7.获取临时密码</p>
+<p>​    如果不想使用临时密码，请执行mysql_secure_installation，设置root密码，如果不会此命令，解决方案见文章末尾的附。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">&#x27;temporary password&#x27;</span> /var/<span class="built_in">log</span>/mysqld.log</span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">2021-03-10T01:53:22.381808Z 1 [Note] A temporary password is generated <span class="keyword">for</span> root@localhost: WngA:JiJa5=k</span><br></pre></td></tr></table></figure>
+<p>8.使用临时密码登录</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p(临时密码)</span><br></pre></td></tr></table></figure>
 
 
-</li>
-</ol>
 <p>附：到这里mysql就已经安装完成，如果嫌弃临时密码太长，就需要更改mysql的密码的安全策略，重新设置密码。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> validate_password_length<span class="operator">=</span><span class="number">4</span>; <span class="comment">--设置密码的长度为4</span></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> validate_password_policy<span class="operator">=</span><span class="number">0</span>; <span class="comment">--将策略级别设为0</span></span><br><span class="line">mysq<span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">USER</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">by</span> <span class="string">&#x27;1234&#x27;</span>; <span class="comment">--更改密码为1234</span></span><br></pre></td></tr></table></figure></div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/03/http/">HTTP</a></h2><div class="post-info">2021年3月3日</div><div class="post-content"><p>​    我们几乎每天都在网上冲浪，接收或发出大量的数据，而这些是怎样被表示并发送接收的的呢？今天就来聊聊处在TCP/IP模型应用层的HTTP协议。</p>
 <p>​    中文名：超文本传输协议，是万维网的基础。服务器与用户通过这个协议完成了数据点到点的传输，Restful API也是基于它而定的一种架构标准。接下来直接进入正题，从http1.1版本开讲。</p>
@@ -185,7 +241,7 @@
 <p>​    第四个升级点，加入PUSH方法。原来客户端解析网页时需要读取HTML取资源，而现在服务器可通过PUSH直接将HTML连同所需资源一同发到客户端，降低了延迟。</p>
 <p>​    第五点，加入就请求优先级。HTTP2中每个请求消息都带有一个31bits的优先级，0为最高级，客户端和服务器可根据不同的优先级采取不同的处理策略。</p>
 </div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/02/24/%E5%BF%AB%E6%8E%92/">快排</a></h2><div class="post-info">2021年2月24日</div><div class="post-content"><p>​    今天突发奇想，能不能用更简洁的方式实现快排，说干就干。</p>
-<p>​    首先来讲讲一般的普通解法，以升序为例，选择一个基值（一般为第一个数），将其放在中间位置，定义两个游标，从左边寻找比基值大的，从右边找比基值大的，左右两个游标交换位置，继续执行此操作，直到两个指针相遇，一轮结束。然后开始下一轮操作，对基数左右两边的数继续执行上述操作，直到排序成功。</p>
+<p>首先来讲讲一般的普通解法，以升序为例，选择一个基值（一般为第一个数），将其放在中间位置，定义两个游标，从左边寻找比基值大的，从右边找比基值大的，左右两个游标交换位置，继续执行此操作，直到两个指针相遇，一轮结束。然后开始下一轮操作，对基数左右两边的数继续执行上述操作，直到排序成功。</p>
 <p>​    上面是快排的最基本思路，利用递归可以轻易实现，那么可不可以再简易一些，更让人容易理解一些呢？</p>
 <p>​    简单分析一下可以发现，每轮操作的最终目的都是将比基值大的数放在基值右边，比基值小的放在基值左边，此时就可以换个思路，进行遍历操作，遇到比基值小的，与左游标交换，遇到比基值大的，与右游标交换，相等则跳过，以下是代码实现：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort_1</span>(<span class="params">sorting, left, right</span>):</span></span><br><span class="line">    <span class="keyword">if</span> right &lt;= left: 	<span class="comment">#判断左右游标是否相遇</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    a = i = left</span><br><span class="line">    b = right</span><br><span class="line">    pivot = sorting[left]	<span class="comment">#设第一个数为基值</span></span><br><span class="line">    <span class="keyword">while</span> i &lt;= b:</span><br><span class="line">        <span class="comment">#如果遍历的值小于基值，与左游标交换</span></span><br><span class="line">        <span class="keyword">if</span> sorting[i] &lt; pivot:	</span><br><span class="line">            sorting[a], sorting[i] = sorting[i], sorting[a] </span><br><span class="line">            a += <span class="number">1</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="comment">#如果遍历的值大于基值，与右游标交换</span></span><br><span class="line">        <span class="keyword">elif</span> sorting[i] &gt; pivot:</span><br><span class="line">            sorting[b], sorting[i] = sorting[i], sorting[b]</span><br><span class="line">            b -= <span class="number">1</span></span><br><span class="line">        <span class="comment">#如果等于则跳过</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="comment">#递归左边的数据</span></span><br><span class="line">    quick_sort_1(sorting, left, a - <span class="number">1</span>)</span><br><span class="line">    	<span class="comment">#递归右边的数据</span></span><br><span class="line">    quick_sort_1(sorting, b + <span class="number">1</span>, right)</span><br></pre></td></tr></table></figure>
@@ -215,44 +271,4 @@
 <li> 对端将所有的数据发送完之后，发送释放连接报文，SYN置为1，序列号为收到包的确认号，确认号为收到包的序列号，发出后进入LAST-wait</li>
 <li> 本段收到后，将ACK置为1，序列号为收到的确认号，确认号为收到的序列号，发出后进入time-wait时间，等待2*MSL后close。</li>
 </ol>
-</div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/01/23/IO%E6%A8%A1%E5%9E%8B/">I/O模型</a></h2><div class="post-info">2021年1月23日</div><div class="post-content"><h2 id="1-概念简述"><a href="#1-概念简述" class="headerlink" title="1. 概念简述"></a>1. 概念简述</h2><p><strong>内核空间和用户空间：</strong></p>
-<p>内核空间：内核调控的硬件资源空间。</p>
-<p>用户空间：基于内核提供的环境的应用程序的活动空间，。</p>
-<p><strong>同步和异步：两者的状态关系</strong></p>
-<p>同步：双方都在同一时间段围绕同一任务行动（调用者等待，被调用者处理），只有当前任务结束，才可以进行下一个。</p>
-<p>异步：双方无需同一时间段围绕同一任务行动，调用者只需通知被调用者处理，之后可自由行动。调用者处理完成后返回结果。</p>
-<p><strong>阻塞和非阻塞：自身状态</strong></p>
-<p>阻塞：一直等待，直至得到结果返回。</p>
-<p>非阻塞：不用等待，可以去做其他事情。</p>
-<p><strong>水平触发和边缘触发：多路复用中的两种模式</strong></p>
-<p>水平触发：当FD已经准备就绪可以进行非阻塞的执行I/O操作时触发通知。</p>
-<p>边缘触发：当FD自上次状态改变后有新的IO活动到来时触发通知。</p>
-<h2 id="2-I-O模型"><a href="#2-I-O模型" class="headerlink" title="2.  I/O模型"></a>2.  I/O模型</h2><p>共五种，同步阻塞I/O，同步非阻塞I/O，I/O复用，信号驱动I/O和异步I/O：</p>
-<ul>
-<li><p><strong>同步阻塞I/O：</strong></p>
-<p>  发起后一直等待，直到完成</p>
-</li>
-<li><p><strong>同步非阻塞I/O</strong></p>
-<p>  发起后进程可以做其它事情，不过会一直询问，直到完成。</p>
-</li>
-<li><p><strong>I/O多路复用模型</strong></p>
-<p>  阻塞多个I/O操作，直到数据准备好才调用I/O操作函数</p>
-</li>
-<li><p><strong>信号驱动I/O</strong></p>
-<p>  需要安装一个信号函数，进程运行不阻塞，数据准备好后发送进程一个SIGIO信号，可以在信号处理函数中调用I/O操作函数。</p>
-</li>
-<li><p><strong>异步非阻塞I/O</strong></p>
-<p>  发起后去做其他事情，完成后被调用者通知调用者。缺点是非常消耗CPU资源。</p>
-</li>
-</ul>
-<h2 id="3-I-O多路复用详解"><a href="#3-I-O多路复用详解" class="headerlink" title="3. I/O多路复用详解"></a>3. I/O多路复用详解</h2><p>I/O多路复用又称异步阻塞模型，从可阻塞多个I/O操作，提升执行效率。主要实现方式有三种：select，poll和epoll。</p>
-<h3 id="3-1-select"><a href="#3-1-select" class="headerlink" title="3.1 select"></a>3.1 select</h3><p>​    将fd集合从用户空间copy到内核空间，无差别轮询所有流，找出所有能读出数据或写入数据的流来进行操作。</p>
-<p>​    select单个进程能够监视的FD数量存在最大限制，但可以更改(内核源码中的#define __FD_SETSIZE)，通常是1024，但由于采用轮询的方式扫描FD，时间复杂度为O(n)，所以FD数量越多，性能越差。</p>
-<p>​    两次内核空间和用户空间的拷贝需要copy大量的FD数据结构，开销较大。</p>
-<p>​    采用水平触发方式，如果应用程序没有完成一个已经ready的文件描述符进行I/O操作，那么之后select调用还是会返回这些FD。</p>
-<p>​    在监听事件时告诉内核要监听什么类型的事件。</p>
-<h3 id="3-2-poll"><a href="#3-2-poll" class="headerlink" title="3.2 poll"></a>3.2 poll</h3><p>​    使用链表保存FD，因此没有了数量限制，但其它缺点依然存在。</p>
-<h3 id="3-3-epoll"><a href="#3-3-epoll" class="headerlink" title="3.3 epoll"></a>3.3 epoll</h3><p>​    event poll，事件驱动，使用一个FD管理多个FD。</p>
-<p>​    可以采用水平触发，也可以使用边缘触发。</p>
-<p>​    在监听事件之前对其类型进行注册，并把所有的FDcopy进内核，且为每个FD指定一个回调函数，将符合条件的fd放到一个链表中，epoll_wait的操作就是定期查看判断这个链表，有FD的话就调用其指定的回调函数。</p>
-</div></article></li></ul></main><footer><div class="paginator"></div><div class="copyright"><p>© 2020 - 2021 <a href="http://yoursite.com">Tian</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p><p>Logo made by <a target="_blank" rel="noopener" href="https://www.flaticon.com/authors/freepik">Freepik</a> from <a target="_blank" rel="noopener" href="https://flaticon.com">www.flaticon.com</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+</div></article></li></ul></main><footer><div class="paginator"><a class="next" href="/page/2/">下一页</a></div><div class="copyright"><p>© 2020 - 2021 <a href="http://yoursite.com">Tian</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p><p>Logo made by <a target="_blank" rel="noopener" href="https://www.flaticon.com/authors/freepik">Freepik</a> from <a target="_blank" rel="noopener" href="https://flaticon.com">www.flaticon.com</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
