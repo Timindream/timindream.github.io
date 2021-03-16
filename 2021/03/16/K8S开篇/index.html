@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> kubernetes开篇 · 为兰 若谷</title><meta name="description" content="kubernetes开篇 - Tian"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="为兰 若谷"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">目录</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" target="_self">网络</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/Linux/" target="_self">LINUX</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/Mysql/" target="_self">MYSQL</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" target="_self">算法与数据结构</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">kubernetes开篇</h1><div class="post-info">2021年3月16日</div><div class="post-content"><p>​    Kubernentes起源于谷歌内部的Borg，是现在最流行的容器编排工具，被誉为云时代的操作系统，至于其多牛，无需再赘述，为方便叙述，接下来皆以K8S称呼。我们首先鸟瞰一下K8S的基本组件结构。</p>
+<p><strong>核心组件</strong></p>
+<ul>
+<li>  etcd：保存了整个集群的状态；</li>
+<li>  controller manager：负责管理控制器；</li>
+<li>  controller：控制器，负责控制其对应的资源；</li>
+<li>  Container runtime：负责镜像管理以及Pod和容器的运行（CRI）；</li>
+<li>  kube-proxy：负责为service提供Cluster内部的服务发现与负载均衡；</li>
+<li>  scheduler：负责资源的调度，按照预定的策略将Pod调度到合适的设备上；</li>
+<li>  Kubelet：负责维护容器的生命周期，并负责Volume（CVI）和网络（CNI）的管理；</li>
+<li>  apisever：提供了资源操作的唯一入口，提供了认证、访问控制，API注册与发现等机制。</li>
+</ul>
+<p><strong>部署安装</strong></p>
+<p>​    可以选择安装简化的单机K8S-minikube。也可以选择完整的安装，本文将采用一master与两Node的部署方式。</p>
+<p>​    </p>
+<p>​    </p>
+</div></article></div></main><footer><div class="paginator"><a class="next" href="/2021/03/15/Linux%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">下一篇</a></div><div class="copyright"><p>© 2020 - 2021 <a href="http://yoursite.com">Tian</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p><p>Logo made by <a target="_blank" rel="noopener" href="https://www.flaticon.com/authors/freepik">Freepik</a> from <a target="_blank" rel="noopener" href="https://flaticon.com">www.flaticon.com</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
