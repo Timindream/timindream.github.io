@@ -1,24 +1,24 @@
 <!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 常见排序解析 · 为兰 若谷</title><meta name="description" content="常见排序解析 - Tian"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="为兰 若谷"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">目录</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" target="_self">网络</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/Linux/" target="_self">LINUX</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/Mysql/" target="_self">MYSQL</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" target="_self">算法与数据结构</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">常见排序解析</h1><div class="post-info">2021年3月17日</div><div class="post-content"><p>​    本文将着重介绍直接插入排序，直接选择排序，冒泡排序，归并排序与快排排序，以下实现皆为升序。</p>
 <p><strong>直接插入排序</strong></p>
-<p>​    特点：稳定，时间复杂度：O(n^2^)。</p>
+<p>​    特点：稳定，时间复杂度：O(n^2)。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertion_sort</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(a)):</span><br><span class="line">        <span class="keyword">while</span> a[i] &lt; a[i-<span class="number">1</span>]:</span><br><span class="line">            a[i], a[i - <span class="number">1</span>] = a[i - <span class="number">1</span>], a[i]</span><br><span class="line">            i -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> a</span><br></pre></td></tr></table></figure>
 <p>​    排序过程：第一个数一定有序，从第二个值开始，将第二个值放入一个temp中，与第一个进行比较，大于放到第一个后面，不大于则将第一位向后移，将第二个数插入到第一位，此时前两个数已经排列好，第三位重复上述过程，在前部已排好的序列中找到位置并插入，原来插入位置极之后的值向后移。继续执行上述过程，直至排序完毕。</p>
 <p>​    上述程序经过优化，将需要进行排序的数直接与前一位值比较，小于则换位置，然后继续向前比较，换位，直到本轮排序完毕，将向后移与插入的过程转换为比较换位。</p>
 <p><strong>直接选择排序</strong></p>
-<p>​    特点：不稳定，时间复杂度：O(n^2^)。</p>
+<p>​    特点：不稳定，时间复杂度：O(n^2)。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selection_sort</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(a) - <span class="number">1</span>):</span><br><span class="line">        m = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i + <span class="number">1</span>, <span class="built_in">len</span>(a)):</span><br><span class="line">            <span class="keyword">if</span> a[m] &gt; a[i]:</span><br><span class="line">                a[m], a[i] = a[i], a[m]</span><br><span class="line">    <span class="keyword">return</span> a</span><br></pre></td></tr></table></figure>
 <p>​    排序过程：从第一位开始，与之后位的值进行比较，直到找出最小值，放到第一位，然后从第二位开始比较，直到找出第二小的数放到第二位，重复上述过程，直到排序完成。</p>
 <p><strong>冒泡排序</strong></p>
-<p>​    特点：稳定，平均时间复杂度：O(n^2^)。</p>
+<p>​    特点：稳定，平均时间复杂度：O(n^2)。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(a) - <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(a) - <span class="number">1</span> - i):</span><br><span class="line">            <span class="keyword">if</span> a[j] &gt; a[j + <span class="number">1</span>]:</span><br><span class="line">                a[j], a[j + <span class="number">1</span>] = a[j + <span class="number">1</span>], a[j]</span><br><span class="line">    <span class="keyword">return</span> a</span><br></pre></td></tr></table></figure>
 <p>​    排序过程：从第一个数开始，如果第一个数大于第二个，两者换位，继续向后比较，如果不大于则不换位，用第二位向后一位比较，重复上述比较过程。</p>
 <p>​    上述程序经过优化，已排好顺序的部分将不参与比较。</p>
 <p><strong>归并排序</strong></p>
-<p>​    特点：稳定，时间复杂度O(nlog<del>2</del>n)</p>
+<p>​    特点：稳定，时间复杂度O(nlog2n)</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_sort</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(a) &gt; <span class="number">1</span>:</span><br><span class="line">        mid = <span class="built_in">len</span>(a) // <span class="number">2</span></span><br><span class="line">        left = merge(a[:mid])</span><br><span class="line">        right = merge(a[mid:])</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        k = <span class="number">0</span></span><br><span class="line">        l = <span class="built_in">len</span>(left)</span><br><span class="line">        r = <span class="built_in">len</span>(right)</span><br><span class="line">        <span class="keyword">while</span> i &lt; l <span class="keyword">and</span> j &lt; r:</span><br><span class="line">            <span class="keyword">if</span> left[i] &lt; right[j]:</span><br><span class="line">                a[k] = left[i]</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">                k += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                a[k] = right[i]</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">                k += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> a</span><br></pre></td></tr></table></figure>
 <p>​    排序过程：采取分治法，将每组都排好序，</p>
 <p><strong>快排</strong></p>
-<p>​    特点：不稳定，时间复杂度：O(nlog<del>2</del>n)</p>
+<p>​    特点：不稳定，时间复杂度：O(nlog2n)</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(a) &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    p = a[<span class="number">0</span>]</span><br><span class="line">    g = [e <span class="keyword">for</span> e <span class="keyword">in</span> a[<span class="number">1</span>:] <span class="keyword">if</span> e &gt; p]</span><br><span class="line">    lq = [e <span class="keyword">for</span> e <span class="keyword">in</span> a[<span class="number">1</span>:] <span class="keyword">if</span> e &lt;= p]</span><br><span class="line">    <span class="keyword">return</span> quick(lq) + [p] + quick(g)</span><br></pre></td></tr></table></figure>
 <p>​    排序过程：选择一个基值（一般为第一个数），将其放在中间位置，定义两个游标，从左边寻找比基值大的数，从右边找比基值小的数，左右两个游标的值交换，执行此操作直至两个指针相遇。一轮结束后，对基数左右两边的数组继续执行上述操作，直到排序完毕。</p>
 <p>​    快排的每一轮的操作本质上来说就是将大的数放到基值右边，小的数放到基值左边，上述的代码就是通过递归来实现上述思想。</p>
@@ -37,8 +37,8 @@
 </thead>
 <tbody><tr>
 <td>直接插入排序</td>
-<td>O(n^2^)</td>
-<td>O(n^2^)</td>
+<td>O(n^2)</td>
+<td>O(n^2)</td>
 <td>O(n)</td>
 <td>O(1)</td>
 <td>稳定</td>
@@ -46,9 +46,9 @@
 </tr>
 <tr>
 <td>直接选择排序</td>
-<td>O(n2)</td>
-<td>O(n2)</td>
-<td>O(n2)</td>
+<td>O(n^2)</td>
+<td>O(n^2)</td>
+<td>O(n^2)</td>
 <td>O(1)</td>
 <td>不稳定</td>
 <td>简单</td>
@@ -64,8 +64,8 @@
 </tr>
 <tr>
 <td>冒泡排序</td>
-<td>O(n2)</td>
-<td>O(n2)</td>
+<td>O(n^2)</td>
+<td>O(n^2)</td>
 <td>O(n)</td>
 <td>O(1)</td>
 <td>稳定</td>
@@ -74,7 +74,7 @@
 <tr>
 <td>快速排序</td>
 <td>O(nlog2n)</td>
-<td>O(n2)</td>
+<td>O(n^2)</td>
 <td>O(nlog2n)</td>
 <td>O(nlog2n)</td>
 <td>不稳定</td>
