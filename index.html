@@ -1,4 +1,108 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 为兰 若谷</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="为兰 若谷"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">目录</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" target="_self">网络</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/Linux/" target="_self">LINUX</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/Mysql/" target="_self">MYSQL</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" target="_self">算法与数据结构</a></li></ul></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/16/K8S%E5%BC%80%E7%AF%87/">kubernetes开篇</a></h2><div class="post-info">2021年3月16日</div><div class="post-content"><p>​    Kubernentes起源于谷歌内部的Borg，是现在最流行的容器编排工具，被誉为云时代的操作系统，至于其多牛，无需再赘述，为方便叙述，接下来皆以K8S称呼。我们首先鸟瞰一下K8S的基本组件结构。</p>
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 为兰 若谷</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="为兰 若谷"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">目录</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" target="_self">网络</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/Linux/" target="_self">LINUX</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/Mysql/" target="_self">MYSQL</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" target="_self">算法与数据结构</a></li></ul></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/17/%E9%80%92%E5%BD%92/">递归</a></h2><div class="post-info">2021年3月17日</div><div class="post-content"><p>​    递归简而言之就是不断地自己调用自己。这个特性本来在语言中是不存在的，经过前辈们的努力，这种思想方法得到了编译器级的支持，现在几乎所有的语言都支持此特性。</p>
+<p>​    首先，    </p>
+</div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/17/%E6%8E%92%E5%BA%8F/">常见排序解析</a></h2><div class="post-info">2021年3月17日</div><div class="post-content"><p>​    本文将着重介绍直接插入排序，直接选择排序，冒泡排序，归并排序与快排排序，以下实现皆为升序。</p>
+<p><strong>直接插入排序</strong></p>
+<p>​    特点：稳定，时间复杂度：O(n^2^)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertion_sort</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(a)):</span><br><span class="line">        <span class="keyword">while</span> a[i] &lt; a[i-<span class="number">1</span>]:</span><br><span class="line">            a[i], a[i - <span class="number">1</span>] = a[i - <span class="number">1</span>], a[i]</span><br><span class="line">            i -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> a</span><br></pre></td></tr></table></figure>
+<p>​    排序过程：第一个数一定有序，从第二个值开始，将第二个值放入一个temp中，与第一个进行比较，大于放到第一个后面，不大于则将第一位向后移，将第二个数插入到第一位，此时前两个数已经排列好，第三位重复上述过程，在前部已排好的序列中找到位置并插入，原来插入位置极之后的值向后移。继续执行上述过程，直至排序完毕。</p>
+<p>​    上述程序经过优化，将需要进行排序的数直接与前一位值比较，小于则换位置，然后继续向前比较，换位，直到本轮排序完毕，将向后移与插入的过程转换为比较换位。</p>
+<p><strong>直接选择排序</strong></p>
+<p>​    特点：不稳定，时间复杂度：O(n^2^)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selection_sort</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(a) - <span class="number">1</span>):</span><br><span class="line">        m = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i + <span class="number">1</span>, <span class="built_in">len</span>(a)):</span><br><span class="line">            <span class="keyword">if</span> a[m] &gt; a[i]:</span><br><span class="line">                a[m], a[i] = a[i], a[m]</span><br><span class="line">    <span class="keyword">return</span> a</span><br></pre></td></tr></table></figure>
+<p>​    排序过程：从第一位开始，与之后位的值进行比较，直到找出最小值，放到第一位，然后从第二位开始比较，直到找出第二小的数放到第二位，重复上述过程，直到排序完成。</p>
+<p><strong>冒泡排序</strong></p>
+<p>​    特点：稳定，平均时间复杂度：O(n^2^)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(a) - <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(a) - <span class="number">1</span> - i):</span><br><span class="line">            <span class="keyword">if</span> a[j] &gt; a[j + <span class="number">1</span>]:</span><br><span class="line">                a[j], a[j + <span class="number">1</span>] = a[j + <span class="number">1</span>], a[j]</span><br><span class="line">    <span class="keyword">return</span> a</span><br></pre></td></tr></table></figure>
+<p>​    排序过程：从第一个数开始，如果第一个数大于第二个，两者换位，继续向后比较，如果不大于则不换位，用第二位向后一位比较，重复上述比较过程。</p>
+<p>​    上述程序经过优化，已排好顺序的部分将不参与比较。</p>
+<p><strong>归并排序</strong></p>
+<p>​    特点：稳定，时间复杂度O(nlog<del>2</del>n)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_sort</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(a) &gt; <span class="number">1</span>:</span><br><span class="line">        mid = <span class="built_in">len</span>(a) // <span class="number">2</span></span><br><span class="line">        left = merge(a[:mid])</span><br><span class="line">        right = merge(a[mid:])</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        k = <span class="number">0</span></span><br><span class="line">        l = <span class="built_in">len</span>(left)</span><br><span class="line">        r = <span class="built_in">len</span>(right)</span><br><span class="line">        <span class="keyword">while</span> i &lt; l <span class="keyword">and</span> j &lt; r:</span><br><span class="line">            <span class="keyword">if</span> left[i] &lt; right[j]:</span><br><span class="line">                a[k] = left[i]</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">                k += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                a[k] = right[i]</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">                k += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> a</span><br></pre></td></tr></table></figure>
+<p>​    排序过程：采取分治法，将每组都排好序，</p>
+<p><strong>快排</strong></p>
+<p>​    特点：不稳定，时间复杂度：O(nlog<del>2</del>n)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(a) &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    p = a[<span class="number">0</span>]</span><br><span class="line">    g = [e <span class="keyword">for</span> e <span class="keyword">in</span> a[<span class="number">1</span>:] <span class="keyword">if</span> e &gt; p]</span><br><span class="line">    lq = [e <span class="keyword">for</span> e <span class="keyword">in</span> a[<span class="number">1</span>:] <span class="keyword">if</span> e &lt;= p]</span><br><span class="line">    <span class="keyword">return</span> quick(lq) + [p] + quick(g)</span><br></pre></td></tr></table></figure>
+<p>​    排序过程：选择一个基值（一般为第一个数），将其放在中间位置，定义两个游标，从左边寻找比基值大的数，从右边找比基值小的数，左右两个游标的值交换，执行此操作直至两个指针相遇。一轮结束后，对基数左右两边的数组继续执行上述操作，直到排序完毕。</p>
+<p>​    快排的每一轮的操作本质上来说就是将大的数放到基值右边，小的数放到基值左边，上述的代码就是通过递归来实现上述思想。</p>
+<p><strong>总结</strong></p>
+<table>
+<thead>
+<tr>
+<th>排序方法</th>
+<th>时间复杂度(平均)</th>
+<th>时间复杂度(最坏)</th>
+<th>时间复杂度(最好)</th>
+<th>空间复杂度</th>
+<th>稳定性</th>
+<th>复杂性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>直接插入排序</td>
+<td>O(n^2^)</td>
+<td>O(n^2^)</td>
+<td>O(n)</td>
+<td>O(1)</td>
+<td>稳定</td>
+<td>简单</td>
+</tr>
+<tr>
+<td>直接选择排序</td>
+<td>O(n2)</td>
+<td>O(n2)</td>
+<td>O(n2)</td>
+<td>O(1)</td>
+<td>不稳定</td>
+<td>简单</td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td>O(nlog2n)</td>
+<td>O(nlog2n)</td>
+<td>O(nlog2n)</td>
+<td>O(1)</td>
+<td>不稳定</td>
+<td>较复杂</td>
+</tr>
+<tr>
+<td>冒泡排序</td>
+<td>O(n2)</td>
+<td>O(n2)</td>
+<td>O(n)</td>
+<td>O(1)</td>
+<td>稳定</td>
+<td>简单</td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>O(nlog2n)</td>
+<td>O(n2)</td>
+<td>O(nlog2n)</td>
+<td>O(nlog2n)</td>
+<td>不稳定</td>
+<td>较复杂</td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>O(nlog2n)</td>
+<td>O(nlog2n)</td>
+<td>O(nlog2n)</td>
+<td>O(n)</td>
+<td>稳定</td>
+<td>较复杂</td>
+</tr>
+<tr>
+<td>基数排序</td>
+<td>O(d(n+r))</td>
+<td>O(d(n+r))</td>
+<td>O(d(n+r))</td>
+<td>O(n+r)</td>
+<td>稳定</td>
+<td>较复杂</td>
+</tr>
+</tbody></table>
+<p>​    </p>
+</div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/16/K8S%E5%BC%80%E7%AF%87/">kubernetes入门</a></h2><div class="post-info">2021年3月16日</div><div class="post-content"><p>​    Kubernentes起源于谷歌内部的Borg，是现在最流行的容器编排工具，被誉为云时代的操作系统，至于其多牛，无需再赘述，为方便叙述，接下来皆以K8S称呼。我们首先鸟瞰一下K8S的基本组件结构。</p>
 <p><strong>核心组件</strong></p>
 <ul>
 <li>  etcd：保存了整个集群的状态；</li>
@@ -12,7 +116,6 @@
 </ul>
 <p><strong>部署安装</strong></p>
 <p>​    可以选择安装简化的单机K8S-minikube。也可以选择完整的安装，本文将采用一master与两Node的部署方式。</p>
-<p>​    </p>
 <p>​    </p>
 </div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/15/Linux%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">Linux启动流程</a></h2><div class="post-info">2021年3月15日</div><div class="post-content"><ol>
 <li><p> 载入BIOS的硬件信息与自我检测，找到第一个可开机设备；</p>
@@ -155,12 +258,12 @@
 <li><p>死锁：A等待B，B等待A。解决方案是进行回滚操作，往往InnoDB会解决大多数的死锁。</p>
 </li>
 </ul>
-</div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/13/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1-%E5%BC%80%E7%AF%87/">开篇</a></h2><div class="post-info">2021年3月13日</div><div class="post-content"><p>​    算法与数据结构是程序员的内功之一，要想写出高质量高性能代码，优秀的算法基础是不可或缺的。这个系列将以python实现，探讨一些常用的算法与数据结构。</p>
-<p>​    首先何为算法，我认为是推演计算寻求结果的方法。将解决问题的方法共性进行抽象而得出来的方式方法，从思想的层面而言，便是道。而数据结构则是在数组或链表的基础上附加特定的属性方法以获得性能的提升或所占存储空间的优化。为了量化程序的执行效率与存储空间的额外使用情况，引入了时间复杂度与空间复杂度。</p>
+</div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/13/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1-%E5%BC%80%E7%AF%87/">算法与数据结构入门</a></h2><div class="post-info">2021年3月13日</div><div class="post-content"><p>​    算法与数据结构是程序员的内功之一，要想写出高质量高性能代码，优秀的算法基础是不可或缺的。这个系列将以python实现，探讨一些常用的算法与数据结构。</p>
+<p>​    首先何为算法，将解决问题的方法共性进行的高度抽象，从思想的层面而言，便是道。数据结构则是在数组或链表的基础上附加特定的属性方法以获得性能的提升与所占空间的优化。为了量化程序的执行效率与存储空间的额外使用情况，引入了时间复杂度与空间复杂度。</p>
 <p>​    时间复杂度是对代码执行效率的量化指标，即程序的执行次数，当程序的执行次数会由于某个变量变化时，我们以以变化函数来表示其复杂度。</p>
 <p>​    我们输出一个正整数n：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(n)</span><br></pre></td></tr></table></figure>
-<p>​    此程序的只需一次执行便可得到结果，我们可将其时间复杂度记为O(1)。</p>
+<p>​    此程序的只需一次执行便可完成操作，我们可将其时间复杂度记为O(1)。</p>
 <p>​    我们再来写一个简单的for循环输出1~n(正整数)：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n+<span class="number">1</span>):</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
 <p>​    这个程序得运行次数取决于n值的大小不断变化，但始终为常数次，其时间复杂度我们便可记为O(n)。</p>
@@ -169,10 +272,10 @@
 <p>​    这个程序的执行次数为i<em>j，由于i与j相等于n，执行次数为n\</em>n，复杂度便可记为O(n^2^)。</p>
 <p>​    以上的程序由于都没有额外开辟空间，所以空间复杂度皆为0。接下来我们举个简单的例子看下利用到额外空间的情况，换位:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">z=x</span><br><span class="line">x=y</span><br><span class="line">y=z</span><br></pre></td></tr></table></figure>
-<p>​    此时我们运用到一个额外的空间Z，那么空间复杂度记为O(1)。</p>
-<p>​    有没有感到复杂度的计算十分简单？当然，毕竟这才刚刚开始，之后会根据具体题目，逐渐深入。以下是常见复杂度的大小效率排序。</p>
+<p>​    此时我们运用到一个额外的空间，那么空间复杂度记为O(1)。</p>
+<p>​    有没有感到复杂度的计算十分简单？当然，这才刚刚开始，之后会根据具体题目，逐渐深入。以下是常见复杂度的大小效率排序。</p>
 <p>​    O(1) &lt; O(logn) &lt; O(n) &lt; O(nlogn) &lt; O(n^2^) &lt; O(n^3^) &lt; O(2^n^)</p>
-<p>​    学习算法与数据结构是一件不是很愉快的事，那我们什么时候可以不用学算法与数据结构呢？现代科技的进步让设备的性能快速提升， 但至少就现在而言，性能依然是远远不够的，在实现相同结果的情况下，经过优化的代码在效率与存储空间的利用上往往强于未经优化的代码，如之后会提到的排序算法。我想等到设备的性能强悍到可以忽略代码上的优化提升（量子计算机），存储的成本变得极其低廉吧，希望有生之年可以遇到吧。</p>
+<p>​    学习算法与数据结构是一件不是很愉快的事，那我们什么时候可以不用学算法与数据结构呢？现代科技的进步让设备的性能快速提升， 但至少就现在而言，性能依然是远远不够的，在实现相同结果的情况下，经过优化的代码在效率与存储空间的利用上往往强于未经优化的代码，如之后会提到的排序算法。我想等到设备的性能强悍到可以忽略代码上的优化提升（量子计算机），存储的成本变得极其低廉吧，希望有生之年可以实现。</p>
 </div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/12/%E9%9A%8F%E6%83%B31/">腾讯业务运维初面复盘</a></h2><div class="post-info">2021年3月12日</div><div class="post-content"><p>​    腾讯的业务运维面试一直显示初始状态，应该是挂了。吃一堑长一智，这篇将对这次面试进行一个完整的复盘，保证错误不犯第二次。</p>
 <ol>
 <li><p>自我介绍</p>
@@ -209,7 +312,7 @@
 <p>​        以上是本次面试比较有价值的问题，总体来说答得非常不好，表述没有严谨，缺乏逻辑性。下次面试一定不能犯这些低级的错误。</p>
 </div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/10/Mysql%E4%B8%BB%E4%BB%8E/">Mysql主从</a></h2><div class="post-info">2021年3月10日</div><div class="post-content"><p>​    常见的Mysql高可用策略，Master配上Slave（可多个），Slave与Master的数据进行同步，当Master宕机时可以顶上去。</p>
 <p>原理：</p>
-<p>​    从节点开两个线程，一个线程负责读取主节点中的二进制日志到本机的relay日志，另一个线程负责执行。</p>
+<p>​    从节点开两个线程，I/O线程负责读取主节点中的二进制日志到本机的relay日志，SQL线程负责数据重放。</p>
 <p>​    有很多主从复制的方法，SBR（基于SQL语句复制）、RBR（基于行复制）、MBR（混合模式（默认使用SBR））以及现在Mysql版本的GITDs（基于事务复制）。</p>
 <ul>
 <li><p>SBR优势在于记录了所有语句，日志较小且方便日后审计。但弊端也较多，有些语句无法被正确地复制，有些语句会执行大量的行级锁。</p>
@@ -270,27 +373,4 @@
 
 
 <p>附：到这里mysql就已经安装完成，如果嫌弃临时密码太长，就需要更改mysql的密码的安全策略，重新设置密码。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> validate_password_length<span class="operator">=</span><span class="number">4</span>; <span class="comment">--设置密码的长度为4</span></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> validate_password_policy<span class="operator">=</span><span class="number">0</span>; <span class="comment">--将策略级别设为0</span></span><br><span class="line">mysq<span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">USER</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">by</span> <span class="string">&#x27;1234&#x27;</span>; <span class="comment">--更改密码为1234</span></span><br></pre></td></tr></table></figure></div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/03/03/http/">HTTP</a></h2><div class="post-info">2021年3月3日</div><div class="post-content"><p>​    我们几乎每天都在网上冲浪，接收或发出大量的数据，而这些是怎样被表示并发送接收的的呢？今天就来聊聊处在TCP/IP模型应用层的HTTP协议。</p>
-<p>​    中文名：超文本传输协议，是万维网的基础。服务器与用户通过这个协议完成了数据点到点的传输，Restful API也是基于它而定的一种架构标准。接下来直接进入正题，从http1.1版本开讲。</p>
-<p>​    1.1的版本虽然已诞生许久，但依然经久不衰。其特点简而言之就是基于TCP连接，以请求-应答的方式进行交互，明文的方式进行传输，处理是无状态的。它的缺点也非常明显，其一，以明文的方式进行传输，数据安全性较低，其二，虽然已经采用keep-alive的连接方式，Pipeline的复用机制，但由于需要按次序处理，所以依然容易造成队头阻塞的问题。其三，报头偏重，浪费资源。至于无状态，这就要分场景而言，例如在直播领域无状态反而由于开销较小，成了个优势。</p>
-<p><strong>HTTPS</strong></p>
-<p>​    对于安全性这方面，前辈们选择添砖加瓦，创造了TLS/SSL协议，采用混合加密的方式保障信息的安全。这里的混合加密是指对称加密与非对称加密的结合。</p>
-<p>​    对称加密是我们较为熟知的方式，发送方用一个密码进行加密，接收方再用这个密码解密，较好理解。非对称加密则是采用私钥与公钥这种密钥对的方式进行加密解密。公钥可对外发布，私钥自己保留，公钥可加密解密私钥发来的信息，私钥对公钥亦然，其原理可以去看下椭圆曲线加密算法。这种非对称加密最常见的应用实例就是HTTPS的身份验证。</p>
-<p>​    权威的第三方机构生成密钥对，公钥加上一些机构和时间等信息形成证书，证书将直接内置于客户端，服务端则内置私钥与证书。在TCP连接建立完成后，客户端发送hello消息，说明自己支持的加密套件，服务端收到后回复hello信息，其中包含证书，选择的加密套件，客户端经过与内置的证书进行比对，确认无误后用此证书中的公钥加密对称密钥，回复给服务端，此后的信息都将进行对称加密。但是这里有个问题，如果server的hello信息被黑客截取，篡改了其中的证书信息，我们怎么来确定它的完整性呢？前辈们提出了数字签名的方案。服务端将证书的信息进行摘要计算（如MD5），再将摘要信息用私钥进行加密生成数字签名，和证书一同发送给客户端，客户端收到后，用公钥解密得到摘要信息，以相同的方式计算，如果得到相同结果则可以确认信息未被修改。</p>
-<p><strong>HTTP2</strong></p>
-<p>​    安全的问题已经解决，接下来解决性能的问题，HTTP2登场。</p>
-<p>​    首先是HTTP2的第一个升级点，二进制分帧。将报文称之为消息，分成头报头帧和DATA帧，这些帧具有相同的ID。在传输时，同一ID的帧必须按顺序发送，不同ID的帧可以乱序发送。</p>
-<p>​    第二个升级点，更好的多路复用。在HTTP1.1中，对单个域名的有6—8的TCP连接数量的限制。在HTTP2中，一个域名只需要一个TCP连接，这个连接可以承载不限数量的双向传输序列（这种双向传输序列被称为流）。</p>
-<p>​    第三个升级点，头部压缩。服务器与客户端维持两个字典和一个表，静态字典（包含常见的头部方法与值，共61个表项），动态字典（可以动态添加）与静态哈夫曼表（对不包含在另两个字典的头部进行压缩）。当发送的报头在静态字典中时，一个字符即可表示，不在时则基于哈夫曼表进行编码发送，并且将这个包头加入到动态字典中，下次传输也只需要一个字符就可以代替。当然，这里讲的比较笼统，能否加入到动态字典也是有要求的，具体细节读者可查看<a target="_blank" rel="noopener" href="https://httpwg.org/specs/rfc7541.html">RFC7541</a>。</p>
-<p>​    第四个升级点，加入PUSH方法。原来客户端解析网页时需要读取HTML取资源，而现在服务器可通过PUSH直接将HTML连同所需资源一同发到客户端，降低了延迟。</p>
-<p>​    第五点，加入就请求优先级。HTTP2中每个请求消息都带有一个31bits的优先级，0为最高级，客户端和服务器可根据不同的优先级采取不同的处理策略。</p>
-</div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2021/02/24/%E5%BF%AB%E6%8E%92/">快排</a></h2><div class="post-info">2021年2月24日</div><div class="post-content"><p>​    今天突发奇想，能不能用更简洁的方式实现快排，说干就干。</p>
-<p>​    首先来讲讲一般的普通解法，以升序为例，选择一个基值（一般为第一个数），将其放在中间位置，定义两个游标，从左边寻找比基值大的，从右边找比基值大的，左右两个游标交换位置，继续执行此操作，直到两个指针相遇，一轮结束。然后开始下一轮操作，对基数左右两边的数继续执行上述操作，直到排序成功。</p>
-<p>​    上面是快排的最基本思路，利用递归可以轻易实现，那么可不可以再简易一些，更让人容易理解一些呢？</p>
-<p>​    简单分析一下可以发现，每轮操作的最终目的都是将比基值大的数放在基值右边，比基值小的放在基值左边，此时就可以换个思路，进行遍历操作，遇到比基值小的，与左游标交换，遇到比基值大的，与右游标交换，相等则跳过，以下是代码实现：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort_1</span>(<span class="params">sorting, left, right</span>):</span></span><br><span class="line">    <span class="keyword">if</span> right &lt;= left: 	<span class="comment">#判断左右游标是否相遇</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    a = i = left</span><br><span class="line">    b = right</span><br><span class="line">    pivot = sorting[left]	<span class="comment">#设第一个数为基值</span></span><br><span class="line">    <span class="keyword">while</span> i &lt;= b:</span><br><span class="line">        <span class="comment">#如果遍历的值小于基值，与左游标交换</span></span><br><span class="line">        <span class="keyword">if</span> sorting[i] &lt; pivot:	</span><br><span class="line">            sorting[a], sorting[i] = sorting[i], sorting[a] </span><br><span class="line">            a += <span class="number">1</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="comment">#如果遍历的值大于基值，与右游标交换</span></span><br><span class="line">        <span class="keyword">elif</span> sorting[i] &gt; pivot:</span><br><span class="line">            sorting[b], sorting[i] = sorting[i], sorting[b]</span><br><span class="line">            b -= <span class="number">1</span></span><br><span class="line">        <span class="comment">#如果等于则跳过</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="comment">#递归左边的数据</span></span><br><span class="line">    quick_sort_1(sorting, left, a - <span class="number">1</span>)</span><br><span class="line">    	<span class="comment">#递归右边的数据</span></span><br><span class="line">    quick_sort_1(sorting, b + <span class="number">1</span>, right)</span><br></pre></td></tr></table></figure>
-<p>​    此代码更容易理解，让我们更近一步，再抽象一些，整个快排的操作都在做一件什么事？基值在中间，将大于基值的数放到右边，小于基值的数放到左边，不断地重复这样的操作。直接上代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort_2</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(a) &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    q = a[<span class="number">0</span>]</span><br><span class="line">    g = [e <span class="keyword">for</span> e <span class="keyword">in</span> a[<span class="number">1</span>:] <span class="keyword">if</span> e &gt; q]</span><br><span class="line">    le = [e <span class="keyword">for</span> e <span class="keyword">in</span> a[<span class="number">1</span>:] <span class="keyword">if</span> e &lt;= q]</span><br><span class="line">    <span class="keyword">return</span> quick_sort_2(le) + [q] + quick_sort_2(g)</span><br></pre></td></tr></table></figure>
-
-
-</div></article></li></ul></main><footer><div class="paginator"><a class="next" href="/page/2/">下一页</a></div><div class="copyright"><p>© 2020 - 2021 <a href="http://yoursite.com">Tian</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p><p>Logo made by <a target="_blank" rel="noopener" href="https://www.flaticon.com/authors/freepik">Freepik</a> from <a target="_blank" rel="noopener" href="https://flaticon.com">www.flaticon.com</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> validate_password_length<span class="operator">=</span><span class="number">4</span>; <span class="comment">--设置密码的长度为4</span></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> validate_password_policy<span class="operator">=</span><span class="number">0</span>; <span class="comment">--将策略级别设为0</span></span><br><span class="line">mysq<span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">USER</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">by</span> <span class="string">&#x27;1234&#x27;</span>; <span class="comment">--更改密码为1234</span></span><br></pre></td></tr></table></figure></div></article></li></ul></main><footer><div class="paginator"><a class="next" href="/page/2/">下一页</a></div><div class="copyright"><p>© 2020 - 2021 <a href="http://yoursite.com">Tian</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p><p>Logo made by <a target="_blank" rel="noopener" href="https://www.flaticon.com/authors/freepik">Freepik</a> from <a target="_blank" rel="noopener" href="https://flaticon.com">www.flaticon.com</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
