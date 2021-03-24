@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 生成树(STP)协议 · 为兰 若谷</title><meta name="description" content="生成树(STP)协议 - Tian"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="为兰 若谷"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">目录</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" target="_self">网络</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/Linux/" target="_self">LINUX</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/Mysql/" target="_self">MYSQL</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" target="_self">算法与数据结构</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">生成树(STP)协议</h1><div class="post-info">2021年3月21日</div><div class="post-content"><p>​    在体量较大的网络中，线路往往错综复杂，物理上存在大量环路，会引发大量问题，STP协议便是在二层逻辑上防环。</p>
+<p>​    生成树协议（STP）中，交换设备被称之为桥，优先级最高的被选为根桥，根据拓扑计算实现逻辑上阻塞冗余链路，消除环路。同时这样也有个好处，当某条活动线路发生故障时，可以激活冗余线路，恢复网络连通性，具有一定的HA。</p>
+<p><strong>BPDU</strong></p>
+<p>​    生成树协议所用的信息段，被封装在以太网数据帧中，根据场景可分为配置BPDU与TCN BPDU。</p>
+<p>​    <strong>配置BPDU</strong>用于生成树计算和维护拓扑，后文提到的BPDU除非特殊说明皆为配置BPDU，其中包含主要包含这些信息：</p>
+<ul>
+<li><p>Root Identifier：当前根桥的BID</p>
+</li>
+<li><p>Root Path Cost：根路径开销。一个端口变量，表示到达根桥的开销，计算方式为去往根桥所经过端口路径开销的总和。</p>
+</li>
+<li><p>Bridge Identifier：本设备的BID。</p>
+</li>
+<li><p>Port Identifier：发送该BPDU的端口ID。PID由两部分组成，端口优先级与端口号。</p>
+<p>​                         端口优先级占4位，步长为16，范围是0~240，默认值为128。</p>
+</li>
+<li><p>Message age：BPDU的传播周期。</p>
+</li>
+<li><p>Max age：BPDU最大生存周期，默认为20秒，当Message age大于Max age时，BPDU将被丢弃。</p>
+</li>
+<li><p>Hello time：发送BPDU的间隔时间，默认值为2秒，当拓扑稳定后，根桥负责发送此信息，如需更改此值，必须在根桥上修改才有效。</p>
+</li>
+<li><p>Forward Delay time：设备状态迁移时间，默认为15秒。</p>
+</li>
+</ul>
+<p>​    <strong>TCN BPDU</strong>是用于下游拓扑变化时向上游发送通知（TC置为1），根节点收到后回复（TCA置为1）并广播（TC置为1的BPDU），直到所有交换设备知晓拓扑变化。</p>
+<p><strong>端口角色</strong></p>
+<p>​    STP中的端口角色有种：</p>
+<ul>
+<li>根端口：去往根端口路径开销最小的端口。</li>
+<li>指定端口：转发信息的端口，包含根端口。</li>
+<li>阻塞端口：未被选举为根端口或指定端口的端口，不转发，只接收BPDU。</li>
+</ul>
+<p><strong>端口状态</strong></p>
+<p>​    STP的端口状态：</p>
+<ul>
+<li>Disabled：端口状态为Down，不处理BPDU报文，也不转发用户流量</li>
+<li>Listening：过渡状态，进行生成树计算，端口开始接收BPDU，但不转发用户流量。</li>
+<li>Learning：过渡状态，建立无环的MAC地址转发表，不转发用户流量，防止环路。</li>
+<li>Forwarding：端口可以接收和发送BPDU，也可以转发用户流量。</li>
+<li>Blocking：阻塞状态，</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a class="next" href="/2021/03/17/%E6%8E%92%E5%BA%8F/">下一篇</a></div><div class="copyright"><p>© 2020 - 2021 <a href="http://yoursite.com">Tian</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p><p>Logo made by <a target="_blank" rel="noopener" href="https://www.flaticon.com/authors/freepik">Freepik</a> from <a target="_blank" rel="noopener" href="https://flaticon.com">www.flaticon.com</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

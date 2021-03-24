@@ -16,7 +16,7 @@
 <p>这个问题肯定是看到项目才问出来的。我事先没有准备，回答是用低轨道离子炮进行压测，看看能顶住多少流量。指标我只回答了三个，页面的响应时间，吞吐量，qps，回答的不行。</p>
 </li>
 <li><p>有没有尝试过用docker进行部署，怎样更安全地docker部署。</p>
-<p>我的回答是尝试过，至于更安全的部署我直接说了kata。现在来看应该先回答，docker是直接在内核上隔离资源进行容器的创建，黑客可以直接通过容器攻击到内核，有安全隐患，所以可以创建KVM，在KVM中使用容器，这样即使容器收到攻击，也很难对宿主机造成危害。但这个方案的资源消耗较高，所以可以使用更加轻量化的VM与容器技术的结合方案，OpenStack基金会的kata，在VM层上创建容器，资源消耗更少。</p>
+<p>我的回答是尝试过，至于更安全的部署我直接说了kata。现在来看应该这样回答，docker是直接在内核上隔离资源进行容器的创建，黑客可以直接通过容器攻击到内核，有安全隐患，所以可以先创建KVM，在KVM中使用容器，这样即使容器收到攻击，也很难对宿主机造成危害。但这个方案的资源消耗较高，所以可以使用更加轻量化的VM与容器技术的结合方案，OpenStack基金会的kata，在VM层上创建容器，资源消耗更少。</p>
 </li>
 <li><p>TCP4次挥手</p>
 <p>这个是基础，没啥好说的。</p>
@@ -31,5 +31,5 @@
 <p>没听说过，直接去世。</p>
 </li>
 </ol>
-<p>​        以上是本次面试比较有价值的问题，总体来说答得非常不好，表述没有严谨，缺乏逻辑性。下次面试一定不能犯这些低级的错误。</p>
+<p>​        以上是本次面试比较有价值的问题，总体来说答得非常不好，表述不严谨，缺乏逻辑性。下次面试一定不能犯这些低级的错误。</p>
 </div></article></div></main><footer><div class="paginator"><a class="prev" href="/2021/03/13/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1-%E5%BC%80%E7%AF%87/">上一篇</a><a class="next" href="/2021/03/10/Mysql%E4%B8%BB%E4%BB%8E/">下一篇</a></div><div class="copyright"><p>© 2020 - 2021 <a href="http://yoursite.com">Tian</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p><p>Logo made by <a target="_blank" rel="noopener" href="https://www.flaticon.com/authors/freepik">Freepik</a> from <a target="_blank" rel="noopener" href="https://flaticon.com">www.flaticon.com</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
